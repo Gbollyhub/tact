@@ -36,7 +36,7 @@
                   </li>
                   <li class="footer-nav-item">
                     <a href="/msme-1000" class="footer-link">6% Interest Loan for MSME</a>
-                    <a href="/sail-senator-abiru-innovation-lab" class="footer-link">SAIL</a>
+                    <a href="/sail" class="footer-link">SAIL Innovation Lab</a>
                   </li>
                   <li class="footer-nav-item">
                     <a href="/legislative-activities" class="footer-link">Legislative activities</a>

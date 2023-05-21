@@ -42,7 +42,7 @@
                 style="position: absolute;left: 0;top: 0;width: 100%;height: 100%;pointer-events: auto;"
                 allow="autoplay; encrypted-media"
                 allowfullscreen=""
-                title="SAIL - (Senator Abiru Innovation Lab)"
+                title="SAIL Innovation Lab"
               ></iframe>
             </div>
           </div>
@@ -81,12 +81,9 @@
             style="opacity: 1"
             class="inner-container-600px align-center mg-bottom-40px"
           >
-            <div class="subtitle">SENATOR ABIRU INNOVATION LAB</div>
-            <h2 class="heading-7">Pilot Programmes</h2>
-            <p>
-              Our commitment to the youths, artisans, small businesses and
-              entrepreneurs of Lagos east senatorial district is unwavering
-            </p>
+            <div class="subtitle">{{post.PostSectionHeading1}}</div>
+            <h2 class="heading-7">{{post.PostSectionHeading2}}</h2>
+            <p>{{post.PostSectionDescription}}</p>
           </div>
           <div
             data-delay="4000"

@@ -35,7 +35,7 @@
                                 <li class="dropdown-nav-item">
                                   <a href="/bursary" class="dropdown-nav-link w-dropdown-link">BURSARY 600</a>
                                   <a href="/msme-1000" class="dropdown-nav-link w-dropdown-link">6% Interest Loan for MSME</a>
-                                  <a href="/sail" class="dropdown-nav-link w-dropdown-link">SAIL (Senator Abiru Innovation Lab)</a>
+                                  <a href="/sail" class="dropdown-nav-link w-dropdown-link">SAIL Innovation Lab</a>
                                 </li>
                               </ul>
                             </div>
