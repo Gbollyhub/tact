@@ -4,14 +4,14 @@
       <div>
         <div class="content-top title-paragraph">
           <div>
-            <h2 class="mg-bottom-0px">TACT FOUNDATION<br />PROGRAMMES</h2>
+            <h2 class="mg-bottom-0px">SAIL EMPOWERMENT FOUNDATION<br />PROGRAMMES</h2>
           </div>
           <div
             id="w-node-fb2d33ef-7426-2a3a-0484-bf48bc44d901-bc44d8fa"
             class="inner-container-400px"
           >
             <p class="mg-bottom-0px tactfeed">
-              Register for our #DOINGGOOD programmes powered by TACT FOUNDATION
+              Register for our #DOINGGOOD programmes powered by SAIL EMPOWERMENT FOUNDATION
             </p>
           </div>
         </div>

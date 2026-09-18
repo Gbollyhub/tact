@@ -1,5 +1,5 @@
 # Dockerfile
-FROM node:11.13.0-alpine
+FROM node:16.20.2-alpine
 
 # create destination directory
 WORKDIR /app
@@ -16,6 +16,6 @@ EXPOSE 3000
 
 ENV NUXT_HOST=0.0.0.0
 ENV NUXT_PORT=3000
-ENV STRAPI_URL=https://cms.tokunboabiru.org
+ENV STRAPI_URL=https://cms.tokunboabiru.org/api
 
 CMD [ "npm", "start" ]

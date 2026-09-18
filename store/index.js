@@ -11,10 +11,10 @@ const createStore = () => {
       faqs: [],
       gallery:[],
       programs:[],
-      press:[],
       campaign:{},
       lActivities:[],
-      facilitations:{}
+      facilitations:{},
+      resources:[]
     },
     getters: {
       getGlobal(state) {
@@ -25,6 +25,9 @@ const createStore = () => {
       },
     },
     mutations: {
+      setResources(state, payload) {
+        state.resources = payload
+      },
       setGlobal(state, payload) {
         state.global = payload
       },
@@ -46,9 +49,6 @@ const createStore = () => {
       setProgram(state, payload) {
         state.programs = payload
       },
-      setPress(state, payload) {
-        state.press = payload
-      },
       setCampaign(state, payload) {
         state.campaign = payload
       },
@@ -62,18 +62,36 @@ const createStore = () => {
     actions: {
       async nuxtServerInit(vuexContext, payload) {
 
-        const globalData = await this.$axios.$get(`${process.env.STRAPI_URL}/global`)
-        const footerData = await this.$axios.$get(`${process.env.STRAPI_URL}/footer`)
-        const contactPageData = await this.$axios.$get(`${process.env.STRAPI_URL}/contact-page`)
-        const addressData = await this.$axios.$get(`${process.env.STRAPI_URL}/contact-addresses`)
-        const faqData = await this.$axios.$get(`${process.env.STRAPI_URL}/faqs`)
-        const galleryData = await this.$axios.$get(`${process.env.STRAPI_URL}/galleries`)
-        const programData = await this.$axios.$get(`${process.env.STRAPI_URL}/tact-programmes`)
-        const pressData = await this.$axios.$get(`${process.env.STRAPI_URL}/presses`)
-        const campaignData = await this.$axios.$get(`${process.env.STRAPI_URL}/campaign-media-kit`)
-        const lActivitiesData = await this.$axios.$get(`${process.env.STRAPI_URL}/legislative-activities`)
-        const facilitationsData = await this.$axios.$get(`${process.env.STRAPI_URL}/facilitations`)
-        
+        const globalRes = await this.$axios.$get(`${process.env.STRAPI_URL}/global?populate=*`)
+        const footerRes = await this.$axios.$get(`${process.env.STRAPI_URL}/footer?populate=*`)
+        const contactPageRes = await this.$axios.$get(`${process.env.STRAPI_URL}/contact-page?populate=*`)
+        const addressRes = await this.$axios.$get(`${process.env.STRAPI_URL}/contact-addresses?populate=*`)
+        const faqRes = await this.$axios.$get(`${process.env.STRAPI_URL}/faqs?populate=*`)
+        const galleryRes = await this.$axios.$get(`${process.env.STRAPI_URL}/galleries?populate=*`)
+        const programRes = await this.$axios.$get(`${process.env.STRAPI_URL}/tact-programmes?populate=*`)
+        const campaignRes = await this.$axios.$get(`${process.env.STRAPI_URL}/campaign-media-kit?populate=*`)
+        const lActivitiesRes = await this.$axios.$get(`${process.env.STRAPI_URL}/legislative-activities?populate=*`)
+        const facilitationsRes = await this.$axios.$get(`${process.env.STRAPI_URL}/facilitations?populate=*`)
+        const resourcesRes = await this.$axios.$get(`${process.env.STRAPI_URL}/resources?populate=*`)
+
+        // Strapi v5 wraps every response as { data, meta } - unwrap before using
+        const globalData = globalRes.data
+        const footerData = footerRes.data
+        const contactPageData = contactPageRes.data
+        const addressData = addressRes.data
+        const faqData = faqRes.data
+        const galleryData = galleryRes.data
+        const programData = programRes.data
+        const campaignData = campaignRes.data
+        const lActivitiesData = lActivitiesRes.data
+        const facilitationsData = facilitationsRes.data
+        const resourcesData = resourcesRes.data
+
+        const nResourcesData = resourcesData.sort(function(a, b) {
+          var c = new Date(a.createdAt);
+          var d = new Date(b.createdAt);
+          return d-c;
+        });
 
         const nfacilitationsData = facilitationsData.sort(function(a, b) {
           var c = new Date(a.PostDate);
@@ -84,16 +102,6 @@ const createStore = () => {
         const nGalleryData = galleryData.sort(function(a, b) {
           var c = new Date(a.PostDate);
           var d = new Date(b.PostDate);
-          return d-c;
-        });
-
-        const galleryImages = galleryData.map(x => {
-          return x.Images.url
-        })
-
-        const nPressData = pressData.sort(function(a, b) {
-          var c = new Date(a.PressDate);
-          var d = new Date(b.PressDate);
           return d-c;
         });
 
@@ -110,12 +118,15 @@ const createStore = () => {
         vuexContext.dispatch('setFAQ', faqData)
         vuexContext.dispatch('setGallery', nGalleryData)
         vuexContext.dispatch('setProgram', programData)
-        vuexContext.dispatch('setPress', nPressData)
         vuexContext.dispatch('setCampaign', campaignData)
         vuexContext.dispatch('setlActivities', nLActivitiesData)
         vuexContext.dispatch('setFacilitations', nfacilitationsData)
+        vuexContext.dispatch('setResources', nResourcesData)
       },
 
+      setResources(vuexContext, payload) {
+        vuexContext.commit('setResources', payload)
+      },
       setGlobal(vuexContext, payload) {
         vuexContext.commit('setGlobal', payload)
       },
@@ -136,9 +147,6 @@ const createStore = () => {
       },
       setProgram(vuexContext, payload) {
         vuexContext.commit('setProgram', payload)
-      },
-      setPress(vuexContext, payload) {
-        vuexContext.commit('setPress', payload)
       },
       setCampaign(vuexContext, payload) {
         vuexContext.commit('setCampaign', payload)

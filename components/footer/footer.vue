@@ -44,6 +44,9 @@
                   <li class="footer-nav-item">
                     <a href="/facilitations" class="footer-link">Facilitations</a>
                   </li>
+                  <li class="footer-nav-item">
+                    <a href="/resources" class="footer-link">Resources</a>
+                  </li>
                   <li class="footer-nav-item last">
                     <a href="/contact-us" class="footer-link">Contact</a>
                   </li>

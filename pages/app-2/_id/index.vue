@@ -12,18 +12,19 @@
           <div class="split-content shop-hero-left">
             <!-- <h1 class="subtitle color-white">FACILITATIONS</h1> -->
             <h2 class="h1-size color-white">
-              {{post.Text1}}
+              {{ post.Text1 }}
             </h2>
-            <div class="about-event-wrapper mg-bottom-8px gallery-date" v-show="post.ShowEntryClosingDate">
-              <div>
-                 Entries close {{post.EntryClosingDate | moment}}
-              </div>
+            <div
+              class="about-event-wrapper mg-bottom-8px gallery-date"
+              v-show="post.ShowEntryClosingDate"
+            >
+              <div>Entries close {{ post.EntryClosingDate | moment }}</div>
             </div>
             <div class="_2-button-wrap mg-top-32px">
               <a
                 href="#Form-Code"
                 class="button-primary _2-buttons white w-button"
-                >Register</a
+                >{{ post.HeroButton }}</a
               >
             </div>
           </div>
@@ -83,22 +84,25 @@
                   class="card futured-event-card mg-bottom-24px landingtemplate"
                 >
                   <div class="split-content futured-event-card-left-content">
-                    <div class="about-event-wrapper mg-bottom-24px" v-show="post.ShowEntryClosingDate">
-                      <div>{{post.EntryClosingDate | moment}}</div>
+                    <div
+                      class="about-event-wrapper mg-bottom-24px"
+                      v-show="post.ShowEntryClosingDate"
+                    >
+                      <div>{{ post.EntryClosingDate | moment }}</div>
                     </div>
                     <div>
                       <h3>
-                        {{post.InfoCardTitle}}
+                        {{ post.InfoCardTitle }}
                       </h3>
-                      <p>
-                        {{post.InfoCardDescription}}<br />
-                      </p>
+                      <div
+                        class="w-richtext"
+                        v-html="marked(post.InfoCardDescription)"
+                      ></div>
                     </div>
                   </div>
                   <div class="split-content futured-event-card-right-content">
                     <img
-                      v-show="post.InfoCardImage.length > 0"
-                      :src="post.InfoCardImage[0].url"
+                      :src="post.InfoCardImage.url"
                       loading="eager"
                       sizes="(max-width: 479px) 100vw, (max-width: 767px) 93vw, (max-width: 991px) 42vw, (max-width: 1439px) 34vw, 414.96875px"
                       alt=""
@@ -106,57 +110,71 @@
                     />
                   </div>
                 </div>
-               <section id="Form-Code" v-show="validateEntryDate">
-<iframe 
-    name="my_iframe" 
-    :srcdoc="post.FormCode"
-    width="100%"
-    height="800px"
-    frameBorder="0"
-    scrolling="no"
-></iframe>
+                <section id="Form-Code" v-show="validateEntryDate">
+                  <iframe
+                    name="my_iframe"
+                    :srcdoc="post.FormCode"
+                    width="100%"
+                    height="800px"
+                    frameBorder="0"
+                    scrolling="no"
+                  ></iframe>
                 </section>
-                
-
               </div>
-  <div class="split-content blog-post-body-right">
-    <div class="card author-card pagetemplate">
-      <img
-        :src="this.$store.state.global.AuthorCardImage.url"
-        loading="lazy"
-        alt=""
-        class="mg-bottom-16px"
-      />
-      <h4 class="title-link detailed-press pagetemplate">
-        {{this.$store.state.global.AuthorCardTitle}}
-      </h4>
-      <h5>Follow me on</h5>
-      <div class="social-links-wrapper footer-social-links pagetemplate">
-        <a
-          :href="this.$store.state.footer.FacebookLink"
-          target="_blank"
-          class="social-link"
-          ></a
-        >
-        <a :href="this.$store.state.footer.TwitterLink" class="social-link"></a>
-        <a
-          :href="this.$store.state.footer.InstagramLink"
-          target="_blank"
-          class="social-link"
-          ></a
-        >
-        <a
-          :href="this.$store.state.footer.YoutubeLink"
-          target="_blank"
-          class="social-link"
-          ></a
-        >
-      </div>
-      <div v-show="post.PartnersList.length > 0" v-for="(item, index) in post.PartnersList" :key="index" class="card logo-card landing">
-        <img :src="item.url" loading="eager" alt="" class="image-2">
-        </div>
-    </div>
-  </div>
+              <div class="split-content blog-post-body-right">
+                <div class="card author-card pagetemplate">
+                  <img
+                    :src="this.$store.state.global.AuthorCardImage.url"
+                    loading="lazy"
+                    alt=""
+                    class="mg-bottom-16px"
+                  />
+                  <h4 class="title-link detailed-press pagetemplate">
+                    {{ this.$store.state.global.AuthorCardTitle }}
+                  </h4>
+                  <h5>Follow me on</h5>
+                  <div
+                    class="social-links-wrapper footer-social-links pagetemplate"
+                  >
+                    <a
+                      :href="this.$store.state.footer.FacebookLink"
+                      target="_blank"
+                      class="social-link"
+                      ></a
+                    >
+                    <a
+                      :href="this.$store.state.footer.TwitterLink"
+                      class="social-link"
+                      ></a
+                    >
+                    <a
+                      :href="this.$store.state.footer.InstagramLink"
+                      target="_blank"
+                      class="social-link"
+                      ></a
+                    >
+                    <a
+                      :href="this.$store.state.footer.YoutubeLink"
+                      target="_blank"
+                      class="social-link"
+                      ></a
+                    >
+                  </div>
+                  <div
+                    v-show="post.PartnersList.length > 0"
+                    v-for="(item, index) in post.PartnersList"
+                    :key="index"
+                    class="card logo-card landing"
+                  >
+                    <img
+                      :src="item.Logo.url"
+                      loading="eager"
+                      alt=""
+                      class="image-2"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -164,7 +182,6 @@
     </div>
 
     <FProgram />
-
   </div>
 </template>
 
@@ -173,7 +190,7 @@ import HeroSection from "~/components/banner/hero-section.vue";
 import FProgram from "~/components/foundation-programmes/f-program.vue";
 import marked from "marked";
 import moment from "moment";
-import axios from 'axios'
+import axios from "axios";
 export default {
   name: "IndexPage",
   components: { HeroSection, FProgram },
@@ -190,24 +207,32 @@ export default {
       return marked(input);
     },
   },
-    computed:{
-      validateEntryDate(){
-      if(this.post.ShowEntryClosingDate){
-        return moment(new Date()).isBefore(this.post.EntryClosingDate)
+  computed: {
+    validateEntryDate() {
+      if (this.post.ShowEntryClosingDate) {
+        return moment(new Date()).isBefore(this.post.EntryClosingDate);
       }
       return true;
-    }
+    },
   },
-   async asyncData({ params }) {
-    const  data  = await axios.get(`${process.env.STRAPI_URL}/event-template-2`)
+  async asyncData({ params }) {
+    const data = await axios.get(
+      `${process.env.STRAPI_URL}/event-template-2?populate[HeroImages]=true&populate[InfoCardImage]=true&populate[PartnersList][populate]=Logo`
+    );
     return {
-      post: data.data,
-      todayDate: new Date()
-      }
-   },
+      post: data.data.data,
+      todayDate: new Date(),
+    };
+  },
 
   head() {
     return {
+      link: [
+        {
+          rel: "canonical",
+          href: `https://tokunboabiru.org${this.$route.path}`,
+        },
+      ],
       htmlAttrs: {
         "data-wf-page": "63074e1023e5b553b9e92e80",
         "data-wf-site": "61d454e57ae5920f3051faad",

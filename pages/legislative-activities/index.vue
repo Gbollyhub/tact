@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div 
-    class="section shop wf-section"
-     :style="{
+    <div
+      class="section shop wf-section"
+      :style="{
         backgroundColor: this.$store.state.global.SiteColor,
         backgroundImage: `url('${this.$store.state.global.SiteBannerBackground.url}')`,
       }"
@@ -11,15 +11,17 @@
         <div class="bursary-hero-wrapper legislative">
           <div class="split-content bursary-hero-left">
             <h1 class="subtitle color-white">LEGISLATIVE ACTIVITIES</h1>
-            <h2 class="h1-size color-white">{{this.$store.state.lActivities[0].Title}}</h2>
+            <h2 class="h1-size color-white">
+              {{ this.$store.state.lActivities[0].Title }}
+            </h2>
             <div class="inner-container-600px">
               <p class="press-p">
-                {{this.$store.state.lActivities[0].HeroSummary}}
+                {{ this.$store.state.lActivities[0].HeroSummary }}
               </p>
             </div>
             <div class="_2-button-wrap mg-top-32px">
               <a
-                :href="`/legislative-activities/${this.$store.state.lActivities[0].id}`"
+                :href="`/legislative-activities/${this.$store.state.lActivities[0].documentId}`"
                 class="button-primary _2-buttons white w-button"
                 >Read more</a
               >
@@ -51,43 +53,65 @@
               id="w-node-d04532ce-1655-8eec-3f8d-db35aee9b699-645211e3"
               class="page-submenu"
             >
-            <div
-            @click="filterList('All')"
-                id="w-node-_5154bbd9-3b45-eded-3861-109b3f4b9529-645211e3"
-                :class="[ currentTab === 'All' ? 'button-secondary w--current' : 'button-secondary' ]"
-                >All</div
-              >
               <div
-              @click="filterList('Bills')"
+                @click="filterList('All')"
                 id="w-node-_5154bbd9-3b45-eded-3861-109b3f4b9529-645211e3"
-                :class="[ currentTab === 'Bills' ? 'button-secondary w--current' : 'button-secondary' ]"
-                >Bills</div
+                :class="[
+                  currentTab === 'All'
+                    ? 'button-secondary w--current'
+                    : 'button-secondary',
+                ]"
               >
+                All
+              </div>
               <div
-              @click="filterList('Motions')"
+                @click="filterList('Bills')"
+                id="w-node-_5154bbd9-3b45-eded-3861-109b3f4b9529-645211e3"
+                :class="[
+                  currentTab === 'Bills'
+                    ? 'button-secondary w--current'
+                    : 'button-secondary',
+                ]"
+              >
+                Bills
+              </div>
+              <div
+                @click="filterList('Motions')"
                 id="w-node-_29f7dfe3-a009-e7b6-dc0f-6ea5e9605895-645211e3"
-                :class="[ currentTab === 'Motions' ? 'button-secondary w--current' : 'button-secondary' ]"
-                >Motions</div
+                :class="[
+                  currentTab === 'Motions'
+                    ? 'button-secondary w--current'
+                    : 'button-secondary',
+                ]"
               >
+                Motions
+              </div>
               <div
-              @click="filterList('Petitions')"
+                @click="filterList('Petitions')"
                 id="w-node-_22b1f723-bf2e-29d5-8d9a-29c408127d90-645211e3"
-                :class="[ currentTab === 'Petitions' ? 'button-secondary w--current' : 'button-secondary' ]"
-                >Petitions</div
+                :class="[
+                  currentTab === 'Petitions'
+                    ? 'button-secondary w--current'
+                    : 'button-secondary',
+                ]"
               >
+                Petitions
+              </div>
             </div>
           </div>
           <div class="list-wrapper">
             <a
               id="w-node-a3d59d64-40bb-03ca-6f6d-6b61656d94fc-645211e3"
-              :href="`/legislative-activities/${item.id}`"
+              :href="`/legislative-activities/${item.documentId}`"
               class="card blog-post-card w-inline-block"
-               v-for="(item, index) in activityList"
+              v-for="(item, index) in activityList"
               :key="index"
             >
-              <div class="about-blog-post-wrapper">{{ item.PostDate | moment }}</div>
+              <div class="about-blog-post-wrapper">
+                {{ item.PostDate | moment }}
+              </div>
               <h3 class="title blog-post-card-title">
-               {{item.Title}}
+                {{ item.Title }}
               </h3>
               <!-- <div>Second reading</div> -->
               <div
@@ -119,7 +143,7 @@ import moment from "moment";
 export default {
   name: "IndexPage",
   components: { HeroSection, FProgram },
-    filters: {
+  filters: {
     moment: function (date) {
       return moment(date).format("MMMM Do YYYY");
     },
@@ -127,30 +151,36 @@ export default {
       return moment(date).format("LT");
     },
   },
-  data(){
-    return{
-      tabClass:'button-secondary',
-      activeClass:'w--current',
-     currentTab:'All',
-     activityList: this.$store.state.lActivities
-    }
+  data() {
+    return {
+      tabClass: "button-secondary",
+      activeClass: "w--current",
+      currentTab: "All",
+      activityList: this.$store.state.lActivities,
+    };
   },
-  methods:{
-    filterList(value){
-      let newList = this.$store.state.lActivities
-      if(value === 'All') {
-        this.activityList = this.$store.state.lActivities
-        this.currentTab = value
-      }else{
-     this.activityList = newList.filter((x) => {
-      return x.Tags === value
-     })
-     this.currentTab = value
+  methods: {
+    filterList(value) {
+      let newList = this.$store.state.lActivities;
+      if (value === "All") {
+        this.activityList = this.$store.state.lActivities;
+        this.currentTab = value;
+      } else {
+        this.activityList = newList.filter((x) => {
+          return x.Tags === value;
+        });
+        this.currentTab = value;
       }
-    }
+    },
   },
   head() {
     return {
+      link: [
+        {
+          rel: "canonical",
+          href: `https://tokunboabiru.org${this.$route.path}`,
+        },
+      ],
       htmlAttrs: {
         "data-wf-page": "628a7948752166d4645211e3",
         "data-wf-site": "61d454e57ae5920f3051faad",

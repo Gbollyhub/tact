@@ -11,11 +11,11 @@
         <div class="shop-hero-wrapper">
           <div class="split-content shop-hero-left">
             <h2 class="h1-size color-white">
-              {{post.Text1}}
+              {{ post.Text1 }}
             </h2>
             <div class="about-event-wrapper mg-bottom-8px gallery-date">
               <div>
-               {{post.Text2}}
+                {{ post.Text2 }}
               </div>
             </div>
             <div class="_2-button-wrap mg-top-32px">
@@ -112,9 +112,9 @@
                     /> -->
                   </div>
                 </div>
-                <iframe 
-    name="my_iframe" 
-    srcdoc="
+                <iframe
+                  name="my_iframe"
+                  srcdoc="
                     <div id='Form-Code-bursary-embed' class='w-embed w-script'>
                   <!DOCTYPE html>
                   <html lang='en'>
@@ -148,11 +148,10 @@
                   </html>
                 </div>
     "
-    src="https://www.birthdaycalculatorbydate.com/"
-    width="900px"
-    height="500px"
-></iframe>
-
+                  src="https://www.birthdaycalculatorbydate.com/"
+                  width="900px"
+                  height="500px"
+                ></iframe>
               </div>
               <div class="split-content blog-post-body-right">
                 <div class="card author-card pagetemplate">
@@ -203,16 +202,14 @@
     </div>
 
     <FProgram />
-
   </div>
-
 </template>
 
 <script>
 import HeroSection from "~/components/banner/hero-section.vue";
 import FProgram from "~/components/foundation-programmes/f-program.vue";
 import moment from "moment";
-import axios from 'axios'
+import axios from "axios";
 export default {
   name: "IndexPage",
   components: { HeroSection, FProgram },
@@ -225,14 +222,22 @@ export default {
       return moment(date).format("LT");
     },
   },
-   async asyncData({ params }) {
-    const  data  = await axios.get(`${process.env.STRAPI_URL}/event-template-1`)
+  async asyncData({ params }) {
+    const data = await axios.get(
+      `${process.env.STRAPI_URL}/event-template-1?populate[HeroImages]=true`
+    );
     return {
-      post: data.data
-      }
-   },
+      post: data.data.data,
+    };
+  },
   head() {
     return {
+      link: [
+        {
+          rel: "canonical",
+          href: `https://tokunboabiru.org${this.$route.path}`,
+        },
+      ],
       htmlAttrs: {
         "data-wf-page": "63074e1023e5b553b9e92e80",
         "data-wf-site": "61d454e57ae5920f3051faad",

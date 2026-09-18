@@ -167,7 +167,7 @@
               :key="index"
               data-w-id="719f6280-9821-0d84-94ae-de85ba9cfece"
               style="opacity: 1"
-              :href="`/facilitations/${item.id}`"
+              :href="`/facilitations/${item.documentId}`"
               class="card blog-post-card w-inline-block"
             >
               <div class="about-blog-post-wrapper facilitation-category">
@@ -177,7 +177,8 @@
                     : item.Tag == "RoadConstructions"
                     ? "Road Contructions"
                     : item.Tag == "ElectrificationWater"
-                    ? "Electrification & Water" : item.Tag
+                    ? "Electrification & Water"
+                    : item.Tag
                 }}
               </div>
               <img
@@ -306,6 +307,12 @@ export default {
   },
   head() {
     return {
+      link: [
+        {
+          rel: "canonical",
+          href: `https://tokunboabiru.org${this.$route.path}`,
+        },
+      ],
       htmlAttrs: {
         "data-wf-page": "628b0b3de461d30a868a23ca",
         "data-wf-site": "61d454e57ae5920f3051faad",

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div 
-    class="section shop wf-section"
-    :style="{
+    <div
+      class="section shop wf-section"
+      :style="{
         backgroundColor: this.$store.state.global.SiteColor,
         backgroundImage: `url('${this.$store.state.global.SiteBannerBackground.url}')`,
       }"
@@ -10,7 +10,7 @@
       <div class="container-default bursary w-container">
         <div class="bursary-hero-wrapper">
           <div class="split-content bursary-hero-left">
-            <h1 class="subtitle color-white">{{post.Text1}}</h1>
+            <h1 class="subtitle color-white">{{ post.Text1 }}</h1>
             <img
               :src="post.HeroLogo.url"
               loading="lazy"
@@ -19,7 +19,7 @@
             />
             <div class="inner-container-600px">
               <p class="press-p">
-                {{post.Text2}}
+                {{ post.Text2 }}
               </p>
             </div>
             <div class="_2-button-wrap mg-top-32px">
@@ -56,7 +56,7 @@
             <div class="blog-post-body-wrapper">
               <div class="split-content blog-post-body-left">
                 <h2 class="heading-4 content">
-                  {{post.SectionTitle}}
+                  {{ post.SectionTitle }}
                 </h2>
                 <img
                   :src="post.SectionImage"
@@ -67,7 +67,7 @@
                 />
                 <div class="w-richtext" v-html="marked(post.SectionBody)"></div>
               </div>
-             <AuthorCard/>
+              <AuthorCard />
             </div>
           </div>
         </div>
@@ -81,9 +81,9 @@
             style="opacity: 1"
             class="inner-container-600px align-center mg-bottom-40px"
           >
-            <div class="subtitle">{{post.PostSectionHeading1}}</div>
-            <h2 class="heading-7">{{post.PostSectionHeading2}}</h2>
-            <p>{{post.PostSectionDescription}}</p>
+            <div class="subtitle">{{ post.PostSectionHeading1 }}</div>
+            <h2 class="heading-7">{{ post.PostSectionHeading2 }}</h2>
+            <p>{{ post.PostSectionDescription }}</p>
           </div>
           <div
             data-delay="4000"
@@ -101,12 +101,13 @@
             data-infinite="true"
           >
             <div class="false-mask inner-container-400px w-slider-mask">
-              <div 
-              v-for="(item, index) in post2"
-              :key="index"
-              class="slide mg-right-24px w-slide">
+              <div
+                v-for="(item, index) in post2"
+                :key="index"
+                class="slide mg-right-24px w-slide"
+              >
                 <div class="card card-v1">
-                  <h3 class="heading-sail-prog">{{item.Title}}</h3>
+                  <h3 class="heading-sail-prog">{{ item.Title }}</h3>
                   <img
                     :src="item.Image.url"
                     loading="lazy"
@@ -115,12 +116,12 @@
                     class="image-sail"
                   />
                   <p class="mg-bottom-32px">
-                    {{item.Description}}
+                    {{ item.Description }}
                   </p>
                   <div class="accent-line thick"></div>
                   <a
-                  style="text-decoration:none;"
-                  :href="item.Url"
+                    style="text-decoration: none"
+                    :href="item.Url"
                     data-w-id="27980871-8eb9-c8bd-50bf-8aa91bf3d981"
                     class="flex mg-top-24px color-primary-1"
                   >
@@ -154,26 +155,32 @@
 import HeroSection from "~/components/banner/hero-section.vue";
 import FProgram from "~/components/foundation-programmes/f-program.vue";
 import AuthorCard from "~/components/author-card/author-card.vue";
-import axios from 'axios'
-import marked from 'marked';
+import axios from "axios";
+import marked from "marked";
 export default {
   name: "IndexPage",
   components: { HeroSection, FProgram, AuthorCard },
-    async asyncData({ params }) {
-    const  data  = await axios.get(`${process.env.STRAPI_URL}/sail`)
-    const  data2  = await axios.get(`${process.env.STRAPI_URL}/sail-programmes`)
+  async asyncData({ params }) {
+    const data = await axios.get(`${process.env.STRAPI_URL}/sail?populate=*`);
+    const data2 = await axios.get(`${process.env.STRAPI_URL}/sail-programmes?populate=*`);
     return {
-      post: data.data,
-      post2: data2.data
-      }
-   },
-         methods:{
-        marked: function(input) {
+      post: data.data.data,
+      post2: data2.data.data,
+    };
+  },
+  methods: {
+    marked: function (input) {
       return marked(input);
-    }
-   },
+    },
+  },
   head() {
     return {
+      link: [
+        {
+          rel: "canonical",
+          href: `https://tokunboabiru.org${this.$route.path}`,
+        },
+      ],
       htmlAttrs: {
         "data-wf-page": "62a86423354c09491747515c",
         "data-wf-site": "61d454e57ae5920f3051faad",
@@ -190,3 +197,43 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+/* .youtube-2 has a hardcoded 750x500px size in the global stylesheet that only
+   gets overridden below 767px - fix it here instead of touching the shared
+   class, since other pages reuse .bursary-hero-wrapper/.bursary-hero-right
+   without a video embed. */
+.bursary-hero-wrapper {
+  flex-wrap: wrap;
+}
+
+.split-content.bursary-hero-right {
+  min-width: 0;
+}
+
+@media screen and (max-width: 767px) {
+  .bursary-hero-wrapper {
+    flex-direction: column;
+  }
+
+  .split-content.bursary-hero-right {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    margin-bottom: 0 !important;
+  }
+
+  .w-embed-youtubevideo.youtube-2 {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 0 !important;
+    padding-top: 56.17021276595745% !important;
+    overflow: hidden;
+  }
+
+  .w-embed-youtubevideo.youtube-2 iframe {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+</style>

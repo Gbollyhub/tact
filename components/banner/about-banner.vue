@@ -9,14 +9,13 @@
         >
           <div class="mg-bottom-16px">
             <div class="text-300 text-uppercase bold color-white">
-              About MUKHAIL ADETOKUNBO ABIRU
+             {{about.Text1}}
             </div>
           </div>
-          <h1 class="color-white">Greater Good to a larger number!</h1>
+          <h1 class="color-white"> {{about.Text2}}</h1>
           <div class="inner-container-500px">
             <p class="meet-subh">
-              Our guiding mantra is a promise for all-round sustainable human
-              capacity development and empowerment
+              {{about.Text3}}
             </p>
           </div>
           <div class="_2-button-wrap mg-top-40px">
@@ -29,7 +28,7 @@
         </div>
         <div class="split-content about-hero-right">
           <img
-            src="~/assets/images/SenatorTokunbo_Abiru_About.jpg"
+            :src="about.HeroImage.url"
             loading="eager"
             style="opacity: 1"
             data-w-id="f5574c59-ffc1-4ad1-3377-11e280d7f133"
@@ -42,3 +41,9 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props:['about'],
+}
+</script>

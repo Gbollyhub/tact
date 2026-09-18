@@ -1,6 +1,6 @@
 <template>
   <div>
-    <AboutBanner />
+    <AboutBanner :about="about" />
     <div class="narrow-section large wf-section">
       <div class="container-default w-container">
         <div>
@@ -45,7 +45,7 @@
               class="split-content about-left"
             >
               <img
-                src="~/assets/images/SenatorTokunbo_Abiru_nativeOfficial.jpg"
+                :src="about.SectionImage.url"
                 loading="eager"
                 sizes="(max-width: 479px) 93vw, (max-width: 767px) 94vw, (max-width: 1439px) 46vw, 585.59375px"
                 alt=""
@@ -83,42 +83,7 @@
               </ul>
             </div>
           </div>
-          <p class="profile-p">
-            Senator Mukhail Adetokunbo Abiru, FCA,  popularly known as “Tokunbo
-            Abiru” is an accomplished Nigerian Banker, Chartered Accountant, and
-            now a Public Servant. He is currently The Senator, representing
-            Lagos East Senatorial district in the 9th Nigerian National
-            Assembly, after 32 years of corporate experience (of which 29 years
-            was spent in the banking industry).<br /><br />He was the pioneer
-            and former Managing Director/Chief Executive Officer of Polaris Bank
-            Limited. He led the turnaround of erstwhile Skye Bank Plc, as Group
-            Managing Director/Chief Executive Officer, under a CBN-induced
-            take-over of the Bank, in a bid to avoid its collapse and also
-            preserve the stability of the overall Nigerian Financial System.<br /><br />His
-            banking career was in top Nigeria Financial Institutions such as
-            First of Bank of Nigeria (2002–16), where he rose to the level of
-            Executive Director, Corporate Banking; and Guaranty Trust Bank
-            (1991-2000).<br />‍<br />Tokunbo Abiru also served on other notable
-            boards as Non-Executive Director: FBN Capital Limited (now FBN Quest
-            Merchant Bank Limited); FBN Bank Sierra–Leone Limited; Airtel Mobile
-            Networks Limited; and Nigeria Inter-Bank Settlement System Plc
-            (NIBSS).<br /><br />During the course of his professional career, he
-            also had the privilege of serving as the Honourable Commissioner of
-            Finance, Lagos State (2011 -2013), under the transformational
-            leadership of Mr. Babatunde Raji Fashola (SAN).<br /><br />Senator
-            Tokunbo Abiru holds a B.Sc. Economics from Lagos State University,
-            and he is a Fellow of The Institute of Chartered Accountants of
-            Nigeria (ICAN) and a Honorary Fellow of The Chartered Institute of
-            Bankers of Nigeria (FCIB). He is an alumnus of both Lagos Business
-            School (LBS) and Harvard Business School (USA).<br /><br />Tokunbo
-            Abiru retired from banking in August 31, 2020 and decided to go into
-            Public Service. He contested for the bye-election of Lagos
-            Senatorial East under the platform of All Progressives Congress
-            (APC) Party, and won the election on 5, December 2020 with 89% of
-            the total votes cast to become a Senator of Federal Republic of
-            Nigeria.<br /><br />Senator Tokunbo Abiru, FCA, is happily married
-            to Mrs. Feyisola Abiru and they are blessed with children.
-          </p>
+          <div class="w-richtext" v-html="marked(about.AboutWriteUp)"></div>
         </div>
       </div>
     </div>
@@ -354,59 +319,15 @@
             data-infinite="true"
           >
             <div class="false-mask inner-container-400px w-slider-mask">
-              <div class="slide mg-right-24px w-slide">
+              <div
+                v-for="(item, index) in achievements"
+                :key="index"
+                class="slide mg-right-24px w-slide"
+              >
                 <div class="card card-v1">
-                  <h3 class="heading-achievements">600</h3>
+                  <h3 class="heading-achievements">{{ item.Figure }}</h3>
                   <p class="mg-bottom-32px">
-                    Annual Bursaries To Brilliant Students In Tertiary
-                    Institutions
-                  </p>
-                  <div class="accent-line thick"></div>
-                </div>
-              </div>
-              <div class="slide mg-right-24px w-slide">
-                <div class="card card-v1">
-                  <h3 class="heading-achievements">150+</h3>
-                  <p class="mg-bottom-32px">
-                    Youths &amp; Entreprenuers undergoing digital &amp;
-                    innovation skill development for future &amp; flobal
-                    competitiveness
-                  </p>
-                  <div class="accent-line thick"></div>
-                </div>
-              </div>
-              <div class="slide mg-right-24px w-slide">
-                <div class="card card-v1">
-                  <h3 class="heading-achievements">1000</h3>
-                  <p class="mg-bottom-32px">
-                    MSMEs to access N300m revolving loan @ 6% per annum
-                  </p>
-                  <div class="accent-line thick"></div>
-                </div>
-              </div>
-              <div class="slide mg-right-24px w-slide">
-                <div class="card card-v1">
-                  <h3 class="heading-achievements">2500</h3>
-                  <p class="mg-bottom-32px">
-                    Beneficiaries Of Monthly COVID-19 cash support.
-                  </p>
-                  <div class="accent-line thick"></div>
-                </div>
-              </div>
-              <div class="slide mg-right-24px w-slide">
-                <div class="card card-v1">
-                  <h3 class="heading-achievements">1800+</h3>
-                  <p class="mg-bottom-32px">
-                    Beneficiaries received monthly financial assistance
-                  </p>
-                  <div class="accent-line thick"></div>
-                </div>
-              </div>
-              <div class="slide mg-right-24px w-slide">
-                <div class="card card-v1">
-                  <h3 class="heading-achievements">20</h3>
-                  <p class="mg-bottom-32px">
-                    MSMEs received N100,000 direct grant each
+                    {{ item.Description }}
                   </p>
                   <div class="accent-line thick"></div>
                 </div>
@@ -454,7 +375,7 @@
           </div>
           <div class="split-content timeline-right">
             <div
-              v-for="(item, index) in this.$store.state.press.slice(0, 4)"
+              v-for="(item, index) in presses.slice(0, 4)"
               :key="index"
               data-w-id="2f0061a8-821b-e8b5-eb32-d0daa60a5a15"
               style="opacity: 0"
@@ -478,7 +399,8 @@
 import HeroSection from "~/components/banner/hero-section.vue";
 import AboutBanner from "~/components/banner/about-banner.vue";
 import moment from "moment";
-import axios from 'axios'
+import axios from "axios";
+import marked from "marked";
 export default {
   name: "IndexPage",
   components: { HeroSection, AboutBanner },
@@ -488,13 +410,41 @@ export default {
     },
   },
   async asyncData({ params }) {
-    const data = await axios.get(`${process.env.STRAPI_URL}/partners`);
+    const partners = await axios.get(`${process.env.STRAPI_URL}/partners?populate=*`);
+    const about = await axios.get(`${process.env.STRAPI_URL}/about-page?populate=*`);
+    const achievements = await axios.get(
+      `${process.env.STRAPI_URL}/achievements?populate=*`
+    );
+    const presses = await axios.get(
+      `${process.env.STRAPI_URL}/presses`,
+      {
+        params: {
+          sort: "PressDate:desc",
+          populate: "*",
+        },
+      }
+    );
+
     return {
-      post: data.data,
+      post: partners.data.data,
+      about: about.data.data,
+      achievements: achievements.data.data,
+      presses: presses.data.data,
     };
+  },
+  methods: {
+    marked: function (input) {
+      return marked(input);
+    },
   },
   head() {
     return {
+      link: [
+        {
+          rel: "canonical",
+          href: `https://tokunboabiru.org${this.$route.path}`,
+        },
+      ],
       htmlAttrs: {
         "data-wf-page": "61d454e57ae5925bd751fab4",
         "data-wf-site": "61d454e57ae5920f3051faad",

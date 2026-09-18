@@ -1,20 +1,21 @@
 <template>
   <div>
-    <VideoModal v-show="modal" :url="url" @closeModal="closeModal"/>
-    <div 
-    class="section shop wf-section"
-             :style="{
+    <VideoModal v-show="modal" :url="url" @closeModal="closeModal" />
+    <div
+      class="section shop wf-section"
+      :style="{
         backgroundColor: this.$store.state.global.SiteColor,
         backgroundImage: `url('${this.$store.state.global.SiteBannerBackground.url}')`,
-      }">
+      }"
+    >
       <div class="container-default bursary w-container">
         <div class="bursary-hero-wrapper">
           <div class="split-content bursary-hero-left">
-            <h1 class="subtitle color-white">{{post.Text1}}</h1>
-            <h2 class="h1-size color-white"> {{post.Text2}}</h2>
+            <h1 class="subtitle color-white">{{ post.Text1 }}</h1>
+            <h2 class="h1-size color-white">{{ post.Text2 }}</h2>
             <div class="inner-container-600px">
               <p class="press-p">
-                {{post.Text3}}
+                {{ post.Text3 }}
               </p>
             </div>
             <div class="_2-button-wrap mg-top-32px">
@@ -46,8 +47,12 @@
           <div>
             <div class="blog-post-body-wrapper">
               <div class="split-content blog-post-body-left">
-                <h2 class="heading-4 content">{{post.SectionTitle}}</h2>
-                <p id="bursary-synopsis" class="profile-p" v-html="marked(post.SectionBody)"></p>
+                <h2 class="heading-4 content">{{ post.SectionTitle }}</h2>
+                <p
+                  id="bursary-synopsis"
+                  class="profile-p"
+                  v-html="marked(post.SectionBody)"
+                ></p>
               </div>
               <div class="split-content blog-post-body-right">
                 <div class="card author-card">
@@ -60,12 +65,15 @@
                   />
                   <div class="split-content progapply">
                     <h2 class="bursary-h2">
-                      {{post.MSMECardTitle}}
+                      {{ post.MSMECardTitle }}
                     </h2>
                     <p class="mg-bottom-24px">
-                      {{post.MSMECardDescription}}
+                      {{ post.MSMECardDescription }}
                     </p>
-                    <a :href="post.MSMECardLink" target="_blank" class="button-primary w-button"
+                    <a
+                      :href="post.MSMECardLink"
+                      target="_blank"
+                      class="button-primary w-button"
                       >Apply
                     </a>
                   </div>
@@ -102,18 +110,16 @@
             data-infinite="true"
           >
             <div class="false-mask inner-container-400px w-slider-mask">
-                            <div 
-                            @click="openModal(item.VideoUrl)"
-              class="slide mg-right-24px w-slide"
-              v-for="(item, index) in post2"
-              :key="index" >
+              <div
+                @click="openModal(item.VideoUrl)"
+                class="slide mg-right-24px w-slide"
+                v-for="(item, index) in post2"
+                :key="index"
+              >
                 <div class="card card-v1">
-           
-                    <img :src="item.VideoSnapshot.url" loading="lazy" alt="">
-                
+                  <img :src="item.VideoSnapshot.url" loading="lazy" alt="" />
                 </div>
-              </div>   
-              
+              </div>
             </div>
             <div
               data-w-id="1c3a6ebf-a023-e232-a557-27c00a3b67c4"
@@ -138,44 +144,48 @@
 <script>
 import HeroSection from "~/components/banner/hero-section.vue";
 import FProgram from "~/components/foundation-programmes/f-program.vue";
-import axios from 'axios'
-import marked from 'marked';
+import axios from "axios";
+import marked from "marked";
 import VideoModal from "~/components/modal/video-modal.vue";
 export default {
   name: "IndexPage",
   components: { HeroSection, FProgram, VideoModal },
-           async asyncData({ params }) {
-    const  data  = await axios.get(`${process.env.STRAPI_URL}/msme`)
-    const  data2  = await axios.get(`${process.env.STRAPI_URL}/msme-highlights`)
+  async asyncData({ params }) {
+    const data = await axios.get(`${process.env.STRAPI_URL}/msme?populate=*`);
+    const data2 = await axios.get(`${process.env.STRAPI_URL}/msme-highlights?populate=*`);
     return {
-      post: data.data,
-      post2: data2.data
-      }
-   },
-      data(){
-   return{
-    modal:false,
-    url:''
-   }
-   },
-         methods:{
-        marked: function(input) {
+      post: data.data.data,
+      post2: data2.data.data,
+    };
+  },
+  data() {
+    return {
+      modal: false,
+      url: "",
+    };
+  },
+  methods: {
+    marked: function (input) {
       return marked(input);
     },
-        openModal(url){
-      this.url =url
-this.modal =true
-console.log("open")
-
+    openModal(url) {
+      this.url = url;
+      this.modal = true;
+      console.log("open");
     },
-    closeModal(){
-      this.modal =false
-      console.log("close")
-
-    }
-   },
+    closeModal() {
+      this.modal = false;
+      console.log("close");
+    },
+  },
   head() {
     return {
+      link: [
+        {
+          rel: "canonical",
+          href: `https://tokunboabiru.org${this.$route.path}`,
+        },
+      ],
       htmlAttrs: {
         "data-wf-page": "62a7509c25d9be7097959809",
         "data-wf-site": "61d454e57ae5920f3051faad",

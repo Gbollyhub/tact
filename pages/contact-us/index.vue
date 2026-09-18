@@ -1,14 +1,24 @@
 <template>
   <div>
-    <div class="section contact wf-section" :style="{  backgroundColor: this.$store.state.global.SiteColor, backgroundImage: `url('${ this.$store.state.global.SiteBannerBackground.url }')` }">
+    <div
+      class="section contact wf-section"
+      :style="{
+        backgroundColor: this.$store.state.global.SiteColor,
+        backgroundImage: `url('${this.$store.state.global.SiteBannerBackground.url}')`,
+      }"
+    >
       <div class="container-default w-container">
         <div>
           <div class="inner-container-700px align-center mg-bottom-40px">
-            <h1 class="subtitle color-white">{{this.$store.state.contactPage.Text1}}</h1>
-            <h2 class="h1-size color-white">{{this.$store.state.contactPage.Text2}}</h2>
+            <h1 class="subtitle color-white">
+              {{ this.$store.state.contactPage.Text1 }}
+            </h1>
+            <h2 class="h1-size color-white">
+              {{ this.$store.state.contactPage.Text2 }}
+            </h2>
             <div class="inner-container-550px">
               <p class="paragraph-2">
-                {{this.$store.state.contactPage.Text3}}
+                {{ this.$store.state.contactPage.Text3 }}
               </p>
             </div>
           </div>
@@ -18,8 +28,8 @@
             class="grid-3-columns"
           >
             <a
-            v-for="(item,index) in this.$store.state.addresses"
-            :key="index"
+              v-for="(item, index) in this.$store.state.addresses"
+              :key="index"
               data-w-id="69c4516d-99ba-e4bb-2bd0-395ec2774dde"
               :href="`tel:${item.PhoneNumber}`"
               class="card contact-link w-inline-block"
@@ -29,10 +39,10 @@
                 alt=""
                 class="icon round-icon mg-bottom-32px"
               />
-              <h3>{{item.Office}}</h3>
-              <p>{{item.Address}}</p>
+              <h3>{{ item.Office }}</h3>
+              <p>{{ item.Address }}</p>
               <div class="accent-line mg-bottom-24px"></div>
-              <div class="title color-neutral-800">{{item.PhoneNumber}}</div>
+              <div class="title color-neutral-800">{{ item.PhoneNumber }}</div>
             </a>
           </div>
         </div>
@@ -88,8 +98,8 @@
           >
             <div class="card contact-form-card">
               <form
-              @submit.prevent="onSubmit" 
-              v-show="form"
+                @submit.prevent="onSubmit"
+                v-show="form"
                 class="contact-form"
               >
                 <div>
@@ -108,7 +118,7 @@
                 <div>
                   <label for="Email-2">Email</label
                   ><input
-                  v-model="email"
+                    v-model="email"
                     type="email"
                     class="input w-input"
                     maxlength="256"
@@ -122,7 +132,7 @@
                 <div>
                   <label for="Phone-number">Phone number</label
                   ><input
-                  v-model="phone"
+                    v-model="phone"
                     type="tel"
                     class="input w-input"
                     maxlength="256"
@@ -136,7 +146,7 @@
                 <div>
                   <label for="Subject">Subject</label
                   ><input
-                  v-model="subject"
+                    v-model="subject"
                     type="text"
                     class="input w-input"
                     maxlength="256"
@@ -150,7 +160,7 @@
                 <div id="w-node-_0cc69ca4-312e-7dbc-c839-a3b5b8e3ea30-b551fab9">
                   <label for="Message">Message</label
                   ><textarea
-                  v-model="message"
+                    v-model="message"
                     placeholder="Enter your message here..."
                     maxlength="5000"
                     id="Message"
@@ -159,12 +169,15 @@
                     class="input text-area w-input"
                   ></textarea>
                 </div>
-                <recaptcha @error="onError" @success="onSuccess" @expired="onExpired" />
+                <recaptcha
+                  @error="onError"
+                  @success="onSuccess"
+                  @expired="onExpired"
+                />
                 <div id="w-node-_3b8e74a2-2d76-5897-55bd-9f17720f4199-b551fab9">
-                  <button
-                    type="submit"
-                    class="submit-button w-button"
-                  >Submit</button>
+                  <button type="submit" class="submit-button w-button">
+                    Submit
+                  </button>
                 </div>
               </form>
               <div v-show="formSuccess" class="success-message">
@@ -179,7 +192,7 @@
                   within 24-48 hours.
                 </div>
               </div>
-              <div v-show="formError" class="error-message text-center ">
+              <div v-show="formError" class="error-message text-center">
                 <div>Oops! Something went wrong.</div>
               </div>
             </div>
@@ -194,17 +207,21 @@
             <div class="subtitle">FAQs</div>
             <h2>Frequently Asked Questions</h2>
             <div class="faq-main-wrapper">
-              <div class="faq-item" v-for="(item,index) in this.$store.state.faqs" :key="index">
+              <div
+                class="faq-item"
+                v-for="(item, index) in this.$store.state.faqs"
+                :key="index"
+              >
                 <div class="faq-top-content">
                   <h3 class="title text-300 mg-bottom-0px">
-                    {{item.Title}}
+                    {{ item.Title }}
                   </h3>
                   <div class="faq-icon"></div>
                 </div>
                 <div class="faq-content">
                   <div class="faq-spacer"></div>
                   <p class="mg-bottom-0px">
-                    {{item.Summary}}
+                    {{ item.Summary }}
                   </p>
                 </div>
               </div>
@@ -216,7 +233,9 @@
         data-w-id="2e5f1e9f-463e-7de8-98c2-cfecfbe29525"
         style="opacity: 0"
         class="image-full-width-left contact-faqs"
-        :style="{backgroundImage: `url('${ this.$store.state.contactPage.FAQImage.url }')` }"
+        :style="{
+          backgroundImage: `url('${this.$store.state.contactPage.FAQImage.url}')`,
+        }"
       ></div>
     </div>
   </div>
@@ -224,58 +243,61 @@
 
 <script>
 import HeroSection from "~/components/banner/hero-section.vue";
-import axios from 'axios'
+import axios from "axios";
 export default {
   name: "IndexPage",
   components: { HeroSection },
-  data(){
-  return {
-    apiKey: '6LdKIXohAAAAAEvZXS5V12slR60kpT8yTAgEbd62',
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: '',
-        form:true,
-    formError: false,
-    formSuccess: false,
-
-  }
-  },  
-  methods:{
- onError(error) {
-      console.log('Error happened:', error)
+  data() {
+    return {
+      apiKey: "6LdKIXohAAAAAEvZXS5V12slR60kpT8yTAgEbd62",
+      name: "",
+      email: "",
+      phone: "",
+      subject: "",
+      message: "",
+      form: true,
+      formError: false,
+      formSuccess: false,
+    };
+  },
+  methods: {
+    onError(error) {
+      console.log("Error happened:", error);
     },
     async onSubmit() {
-      console.log("clcikeda")
+      console.log("clcikeda");
       try {
-        const token = await this.$recaptcha.getResponse()
-        console.log('ReCaptcha token:', token)
-        await this.$recaptcha.reset()
+        const token = await this.$recaptcha.getResponse();
+        console.log("ReCaptcha token:", token);
+        await this.$recaptcha.reset();
       } catch (error) {
         // eslint-disable-next-line no-console
-        console.log('Login error:', error)
+        console.log("Login error:", error);
       }
     },
     async onSuccess(token) {
-
-          const mail = axios.post('https://api-tact.herokuapp.com/send-mail', {
-       name: this.name,
-       email: this.email,
-       phone: this.phone,
-       subject: this.subject,
-       message: this.message
-     })
-         this.form = false
-    this.formSuccess = true
-       
+      const mail = axios.post("https://api-tact.herokuapp.com/send-mail", {
+        name: this.name,
+        email: this.email,
+        phone: this.phone,
+        subject: this.subject,
+        message: this.message,
+      });
+      this.form = false;
+      this.formSuccess = true;
     },
     onExpired() {
-      console.log('Expired')
-    }
+      console.log("Expired");
+    },
   },
   head() {
     return {
+      link: [
+        {
+          rel: "canonical",
+          href: `https://tokunboabiru.org${this.$route.path}`,
+        },
+      ],
       htmlAttrs: {
         "data-wf-page": "61d454e57ae5923ab551fab9",
         "data-wf-site": "61d454e57ae5920f3051faad",

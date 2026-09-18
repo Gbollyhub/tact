@@ -29,7 +29,7 @@
                                 </li>
                               </ul>
                             </div>
-                            <div class="title dropdown-nav-title">tact foundation</div>
+                            <div class="title dropdown-nav-title">SAIL EMPOWERMENT FOUNDATION</div>
                             <div class="dropdown-nav-content">
                               <ul role="list" class="dropdown-nav w-list-unstyled">
                                 <li class="dropdown-nav-item">
@@ -57,6 +57,9 @@
                 </li>
                 <li class="nav-item-wrapper">
                   <a href="/press" class="nav-link color-white">Press</a>
+                </li>
+                <li class="nav-item-wrapper">
+                  <a href="/resources" class="nav-link color-white">Resources</a>
                 </li>
                 <li class="nav-item-wrapper">
                   <a href="/gallery" class="nav-link color-white">Gallery</a>

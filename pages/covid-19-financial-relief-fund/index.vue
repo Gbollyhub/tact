@@ -1,21 +1,22 @@
 <template>
   <div>
-    <div 
-             :style="{
+    <div
+      :style="{
         backgroundColor: this.$store.state.global.SiteColor,
         backgroundImage: `url('${this.$store.state.global.SiteBannerBackground.url}')`,
       }"
-    class="section shop wf-section">
+      class="section shop wf-section"
+    >
       <div class="container-default bursary w-container">
         <div class="bursary-hero-wrapper">
           <div class="split-content bursary-hero-left">
-            <h1 class="subtitle color-white">{{post.Text1}}</h1>
+            <h1 class="subtitle color-white">{{ post.Text1 }}</h1>
             <h2 class="h1-size color-white">
-              {{post.Text2}}
+              {{ post.Text2 }}
             </h2>
             <div class="inner-container-600px">
               <p class="press-p">
-                {{post.Text3}}
+                {{ post.Text3 }}
               </p>
             </div>
             <div class="_2-button-wrap mg-top-32px">
@@ -47,8 +48,12 @@
           <div>
             <div class="blog-post-body-wrapper">
               <div class="split-content blog-post-body-left">
-                 <h2 class="heading-4 content">{{post.SectionTitle}}</h2>
-                <p id="bursary-synopsis" class="profile-p" v-html="marked(post.SectionBody)"></p>
+                <h2 class="heading-4 content">{{ post.SectionTitle }}</h2>
+                <p
+                  id="bursary-synopsis"
+                  class="profile-p"
+                  v-html="marked(post.SectionBody)"
+                ></p>
               </div>
               <div class="split-content blog-post-body-right">
                 <div class="card author-card">
@@ -60,11 +65,14 @@
                     class="mg-bottom-16px"
                   />
                   <div class="split-content progapply">
-                    <h2 class="bursary-h2">{{post.CardTitle}}</h2>
+                    <h2 class="bursary-h2">{{ post.CardTitle }}</h2>
                     <p class="mg-bottom-24px">
-                      {{post.CardDescription}}
+                      {{ post.CardDescription }}
                     </p>
-                    <a :href="post.Cardlink" target="_blank" class="button-primary w-button"
+                    <a
+                      :href="post.Cardlink"
+                      target="_blank"
+                      class="button-primary w-button"
                       >View list of Beneficiaries</a
                     >
                   </div>
@@ -81,29 +89,38 @@
 <script>
 import HeroSection from "~/components/banner/hero-section.vue";
 import FProgram from "~/components/foundation-programmes/f-program.vue";
-import axios from 'axios'
-import marked from 'marked';
+import axios from "axios";
+import marked from "marked";
 export default {
   name: "IndexPage",
   components: { HeroSection, FProgram },
-           async asyncData({ params }) {
-    const  data  = await axios.get(`${process.env.STRAPI_URL}/covid-19-financial-relief-fund`)
+  async asyncData({ params }) {
+    const data = await axios.get(
+      `${process.env.STRAPI_URL}/covid-19-financial-relief-fund?populate=*`
+    );
     return {
-      post: data.data
-      }
-   },
-         methods:{
-        marked: function(input) {
+      post: data.data.data,
+    };
+  },
+  methods: {
+    marked: function (input) {
       return marked(input);
-    }
-   },
+    },
+  },
   head() {
     return {
+      link: [
+        {
+          rel: "canonical",
+          href: `https://tokunboabiru.org${this.$route.path}`,
+        },
+      ],
       htmlAttrs: {
         "data-wf-page": "62b0313235e2c8b403c654ff",
         "data-wf-site": "61d454e57ae5920f3051faad",
       },
-      title: "Covid-19 financial Relief Fund - Senator Mukhail Adetokunbo Abiru",
+      title:
+        "Covid-19 financial Relief Fund - Senator Mukhail Adetokunbo Abiru",
       meta: [
         {
           hid: "description",

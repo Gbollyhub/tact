@@ -12,11 +12,11 @@
           <div class="split-content shop-hero-left">
             <!-- <h1 class="subtitle color-white">FACILITATIONS</h1> -->
             <h2 class="h1-size color-white">
-              {{post.Text1}}
+              {{ post.Text1 }}
             </h2>
             <div class="about-event-wrapper mg-bottom-8px gallery-date">
               <div>
-                {{post.Text2}}
+                {{ post.Text2 }}
               </div>
             </div>
             <div class="_2-button-wrap mg-top-32px">
@@ -84,15 +84,13 @@
                 >
                   <div class="split-content futured-event-card-left-content">
                     <div class="about-event-wrapper mg-bottom-24px">
-                      <div>{{post.InfoCardDate | moment}}</div>
+                      <div>{{ post.InfoCardDate | moment }}</div>
                     </div>
                     <div>
                       <h3>
-                        {{post.InfoCardTitle}}
+                        {{ post.InfoCardTitle }}
                       </h3>
-                      <p>
-                        {{post.InfoCardDescription}}<br />
-                      </p>
+                      <p>{{ post.InfoCardDescription }}<br /></p>
                     </div>
                   </div>
                   <div class="split-content futured-event-card-right-content">
@@ -105,9 +103,9 @@
                     />
                   </div>
                 </div>
-                <iframe 
-    name="my_iframe" 
-    srcdoc="
+                <iframe
+                  name="my_iframe"
+                  srcdoc="
                     <div id='Form-Code-bursary-embed' class='w-embed w-script'>
                   <!DOCTYPE html>
                   <html lang='en'>
@@ -141,52 +139,67 @@
                   </html>
                 </div>
     "
-    src="https://www.birthdaycalculatorbydate.com/"
-    width="100%"
-    height="800px"
-    frameBorder="0"
-    scrolling="no"
-></iframe>
-
+                  src="https://www.birthdaycalculatorbydate.com/"
+                  width="100%"
+                  height="800px"
+                  frameBorder="0"
+                  scrolling="no"
+                ></iframe>
               </div>
-  <div class="split-content blog-post-body-right">
-    <div class="card author-card pagetemplate">
-      <img
-        :src="this.$store.state.global.AuthorCardImage.url"
-        loading="lazy"
-        alt=""
-        class="mg-bottom-16px"
-      />
-      <h4 class="title-link detailed-press pagetemplate">
-        {{this.$store.state.global.AuthorCardTitle}}
-      </h4>
-      <h5>Follow me on</h5>
-      <div class="social-links-wrapper footer-social-links pagetemplate">
-        <a
-          :href="this.$store.state.footer.FacebookLink"
-          target="_blank"
-          class="social-link"
-          ></a
-        >
-        <a :href="this.$store.state.footer.TwitterLink" class="social-link"></a>
-        <a
-          :href="this.$store.state.footer.InstagramLink"
-          target="_blank"
-          class="social-link"
-          ></a
-        >
-        <a
-          :href="this.$store.state.footer.YoutubeLink"
-          target="_blank"
-          class="social-link"
-          ></a
-        >
-      </div>
-      <div v-show="post.PartnersList.length > 0" v-for="(item, index) in post.PartnersList" :key="index" class="card logo-card landing">
-        <img :src="item.img" loading="eager" alt="" class="image-2">
-        </div>
-    </div>
-  </div>
+              <div class="split-content blog-post-body-right">
+                <div class="card author-card pagetemplate">
+                  <img
+                    :src="this.$store.state.global.AuthorCardImage.url"
+                    loading="lazy"
+                    alt=""
+                    class="mg-bottom-16px"
+                  />
+                  <h4 class="title-link detailed-press pagetemplate">
+                    {{ this.$store.state.global.AuthorCardTitle }}
+                  </h4>
+                  <h5>Follow me on</h5>
+                  <div
+                    class="social-links-wrapper footer-social-links pagetemplate"
+                  >
+                    <a
+                      :href="this.$store.state.footer.FacebookLink"
+                      target="_blank"
+                      class="social-link"
+                      ></a
+                    >
+                    <a
+                      :href="this.$store.state.footer.TwitterLink"
+                      class="social-link"
+                      ></a
+                    >
+                    <a
+                      :href="this.$store.state.footer.InstagramLink"
+                      target="_blank"
+                      class="social-link"
+                      ></a
+                    >
+                    <a
+                      :href="this.$store.state.footer.YoutubeLink"
+                      target="_blank"
+                      class="social-link"
+                      ></a
+                    >
+                  </div>
+                  <div
+                    v-show="post.PartnersList.length > 0"
+                    v-for="(item, index) in post.PartnersList"
+                    :key="index"
+                    class="card logo-card landing"
+                  >
+                    <img
+                      :src="item.Logo.url"
+                      loading="eager"
+                      alt=""
+                      class="image-2"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -194,7 +207,6 @@
     </div>
 
     <FProgram />
-
   </div>
 </template>
 
@@ -203,7 +215,7 @@ import HeroSection from "~/components/banner/hero-section.vue";
 import FProgram from "~/components/foundation-programmes/f-program.vue";
 import marked from "marked";
 import moment from "moment";
-import axios from 'axios'
+import axios from "axios";
 export default {
   name: "IndexPage",
   components: { HeroSection, FProgram },
@@ -220,15 +232,23 @@ export default {
       return marked(input);
     },
   },
-   async asyncData({ params }) {
-    const  data  = await axios.get(`${process.env.STRAPI_URL}/event-template-2`)
+  async asyncData({ params }) {
+    const data = await axios.get(
+      `${process.env.STRAPI_URL}/event-template-2?populate[HeroImages]=true&populate[InfoCardImage]=true&populate[PartnersList][populate]=Logo`
+    );
     return {
-      post: data.data
-      }
-   },
+      post: data.data.data,
+    };
+  },
 
   head() {
     return {
+      link: [
+        {
+          rel: "canonical",
+          href: `https://tokunboabiru.org${this.$route.path}`,
+        },
+      ],
       htmlAttrs: {
         "data-wf-page": "63074e1023e5b553b9e92e80",
         "data-wf-site": "61d454e57ae5920f3051faad",

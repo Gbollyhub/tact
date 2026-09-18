@@ -40,10 +40,11 @@
               />
               <div class="mg-top-32px bottom">
                 <h4 class="h2-size mg-bottom-8px">
-                  2,500<span class="color-primary-1">+</span>
+                  {{ post.Section1CovidRefliefFundNumber
+                  }}<span class="color-primary-1">+</span>
                 </h4>
                 <div class="text-300 medium">
-                  Beneficiaries of Covid-19 financial Relief Fund
+                  {{ post.Section1CovidRefliefFundCaption }}
                 </div>
               </div>
               <a
@@ -74,11 +75,11 @@
               />
               <div class="mg-top-32px bottom">
                 <h3 class="h2-size mg-bottom-8px">
-                  150<span class="color-primary-1">+</span>
+                  {{ post.Section1SailNumber
+                  }}<span class="color-primary-1">+</span>
                 </h3>
                 <div class="text-300 medium">
-                  youths upskilled in technology at SAIL (Senator Abiru
-                  Innovation Lab)
+                  {{ post.Section1SailCaption }}
                 </div>
               </div>
               <a
@@ -109,10 +110,11 @@
               />
               <div class="mg-top-32px bottom">
                 <h3 class="h2-size mg-bottom-8px">
-                  1,000<span class="color-primary-1">+</span>
+                  {{ post.Section1MSMENumber
+                  }}<span class="color-primary-1">+</span>
                 </h3>
                 <div class="text-300 medium">
-                  Small Businesses gained access to Business AID
+                  {{ post.Section1MSMECaption }}
                 </div>
               </div>
               <a
@@ -143,11 +145,11 @@
               />
               <div class="mg-top-32px bottom">
                 <h3 class="h2-size mg-bottom-8px">
-                  600<span class="color-primary-1">+</span>
+                  {{ post.Section1BursaryNumber
+                  }}<span class="color-primary-1">+</span>
                 </h3>
                 <div class="text-300 medium">
-                  Bursary Fund Endowment to indigent students of higher
-                  Institutions
+                  {{ post.Section1BursaryCaption }}
                 </div>
               </div>
               <a
@@ -303,7 +305,7 @@
               </div>
               <a
                 style="text-decoration: none"
-                :href="`/legislative-activities/${item.id}`"
+                :href="`/legislative-activities/${item.documentId}`"
                 data-w-id="cbccd44d-a463-6053-76f1-2161e02358ff"
                 class="flex mg-top-24px color-primary-1"
               >
@@ -362,19 +364,20 @@
               <div class="mg-top-40px">
                 <p class="faciltate-p">
                   {{
-                  item.Tag == "YouthSportsTechnology"
-                    ? "Youth, Sports & Technology"
-                    : item.Tag == "RoadConstructions"
-                    ? "Road Contructions"
-                    : item.Tag == "ElectrificationWater"
-                    ? "Electrification & Water" : item.Tag
-                }}
+                    item.Tag == "YouthSportsTechnology"
+                      ? "Youth, Sports & Technology"
+                      : item.Tag == "RoadConstructions"
+                      ? "Road Contructions"
+                      : item.Tag == "ElectrificationWater"
+                      ? "Electrification & Water"
+                      : item.Tag
+                  }}
                 </p>
                 <h3>{{ item.Title }}</h3>
               </div>
               <a
                 style="text-decoration: none"
-                :href="`/facilitations/${item.id}`"
+                :href="`/facilitations/${item.documentId}`"
                 data-w-id="d3fd93b4-14fd-e217-7ab7-5bae616ed55d"
                 class="flex mg-top-24px color-primary-1"
               >
@@ -538,15 +541,21 @@ export default {
   name: "IndexPage",
   components: { HeroSection },
   async asyncData({ params }) {
-    const data = await axios.get(`${process.env.STRAPI_URL}/homepage`);
-    const data2 = await axios.get(`${process.env.STRAPI_URL}/testimonials`);
+    const data = await axios.get(`${process.env.STRAPI_URL}/homepage?populate=*`);
+    const data2 = await axios.get(`${process.env.STRAPI_URL}/testimonials?populate=*`);
     return {
-      post: data.data,
-      post2: data2.data,
+      post: data.data.data,
+      post2: data2.data.data,
     };
   },
   head() {
     return {
+      link: [
+        {
+          rel: "canonical",
+          href: `https://tokunboabiru.org${this.$route.path}`,
+        },
+      ],
       htmlAttrs: {
         "data-wf-page": "61d454e57ae592c70451faae",
         "data-wf-site": "61d454e57ae5920f3051faad",
