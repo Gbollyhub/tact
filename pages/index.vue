@@ -84,7 +84,7 @@
               </div>
               <a
                 style="color: #0e121e !important"
-                href="/sail"
+                href="https://sailab.ng/"
                 class="button-secondary"
                 >Learn more</a
               >
