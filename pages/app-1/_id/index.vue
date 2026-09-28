@@ -201,7 +201,7 @@ export default {
   },
   async asyncData({ params }) {
     const data = await axios.get(
-      `${process.env.STRAPI_URL}/event-template-1?populate[HeroImages]=true&populate[InfoCardImage]=true&populate[PartnersList][populate]=Logo`
+      `${process.env.STRAPI_URL}/event-template-1?populate[HeroImages]=true&populate[InfoCardImage]=true`
     );
     return {
       post: data.data.data,
