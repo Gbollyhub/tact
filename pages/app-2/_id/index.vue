@@ -160,19 +160,6 @@
                       ></a
                     >
                   </div>
-                  <div
-                    v-show="post.PartnersList.length > 0"
-                    v-for="(item, index) in post.PartnersList"
-                    :key="index"
-                    class="card logo-card landing"
-                  >
-                    <img
-                      :src="item.Logo.url"
-                      loading="eager"
-                      alt=""
-                      class="image-2"
-                    />
-                  </div>
                 </div>
               </div>
             </div>
@@ -217,7 +204,7 @@ export default {
   },
   async asyncData({ params }) {
     const data = await axios.get(
-      `${process.env.STRAPI_URL}/event-template-2?populate[HeroImages]=true&populate[InfoCardImage]=true&populate[PartnersList][populate]=Logo`
+      `${process.env.STRAPI_URL}/event-template-2?populate[HeroImages]=true&populate[InfoCardImage]=true`
     );
     return {
       post: data.data.data,

@@ -128,7 +128,6 @@
                   />
                   <h4 class="title-link detailed-press pagetemplate">
                     {{ this.$store.state.global.AuthorCardTitle }}
-                    {{ validateEntryDate }}
                   </h4>
                   <h5>Follow me on</h5>
                   <div
@@ -157,19 +156,6 @@
                       class="social-link"
                       ></a
                     >
-                  </div>
-                  <div
-                    v-show="post.PartnersList.length > 0"
-                    v-for="(item, index) in post.PartnersList"
-                    :key="index"
-                    class="card logo-card landing"
-                  >
-                    <img
-                      :src="item.Logo.url"
-                      loading="eager"
-                      alt=""
-                      class="image-2"
-                    />
                   </div>
                 </div>
               </div>

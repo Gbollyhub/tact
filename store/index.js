@@ -88,8 +88,8 @@ const createStore = () => {
         const resourcesData = resourcesRes.data
 
         const nResourcesData = resourcesData.sort(function(a, b) {
-          var c = new Date(a.createdAt);
-          var d = new Date(b.createdAt);
+          var c = new Date(a.Date);
+          var d = new Date(b.Date);
           return d-c;
         });
 
